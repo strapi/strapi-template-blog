@@ -1,12 +1,21 @@
-const fs = require('fs');
+"use strict";
+
+const fs = require("fs");
 const path = require("path");
-const { categories, projects, about, home, global } = require('../../data/data.json');
+const mime = require("mime-types");
+const {
+  categories,
+  homepage,
+  writers,
+  articles,
+  global
+} = require("../../data/data.json");
 
 async function isFirstRun() {
   const pluginStore = strapi.store({
     environment: strapi.config.environment,
     type: "type",
-    name: "setup"
+    name: "setup",
   });
   const initHasRun = await pluginStore.get({ key: "initHasRun" });
   await pluginStore.set({ key: "initHasRun", value: true });
@@ -22,7 +31,10 @@ async function setPublicPermissions(newPermissions) {
   // List all available permissions
   const publicPermissions = await strapi
     .query("permission", "users-permissions")
-    .find({ type: "application", role: publicRole.id });
+    .find({
+      type: ["users-permissions", "application"],
+      role: publicRole.id,
+    });
 
   // Update permission to match new config
   const controllersToUpdate = Object.keys(newPermissions);
@@ -46,7 +58,7 @@ async function setPublicPermissions(newPermissions) {
   await Promise.all(updatePromises);
 }
 
-function getFilesizeInBytes(filePath) {
+function getFileSizeInBytes(filePath) {
   const stats = fs.statSync(filePath);
   const fileSizeInBytes = stats["size"];
   return fileSizeInBytes;
@@ -56,9 +68,9 @@ function getFileData(fileName) {
   const filePath = `./data/uploads/${fileName}`;
 
   // Parse the file metadata
-  const size = getFilesizeInBytes(filePath);
+  const size = getFileSizeInBytes(filePath);
   const ext = fileName.split(".").pop();
-  const mimeType = `image/${ext === 'svg' ? 'svg+xml' : ext}`;
+  const mimeType = mime.lookup(ext);
 
   return {
     path: filePath,
@@ -69,113 +81,83 @@ function getFileData(fileName) {
 }
 
 // Create an entry and attach files if there are any
-async function createEntry(model, entry, files) {
+async function createEntry({ model, entry, files }) {
   try {
     const createdEntry = await strapi.query(model).create(entry);
     if (files) {
       await strapi.entityService.uploadFiles(createdEntry, files, {
-        model
+        model,
       });
     }
   } catch (e) {
-    console.log(e);
+    console.log('model', entry, e);
   }
 }
 
 async function importCategories() {
-  return categories.map((category) => {
-    return strapi.services.category.create(category);
-  });
+  return Promise.all(categories.map((category) => {
+    return createEntry({ model: "category", entry: category });
+  }));
 }
 
-async function importProjects() {
-  return projects.map(async (project) => {
-    const coverImage = getFileData(`${project.slug}.jpg`);
+async function importHomepage() {
+  const files = {
+    "seo.shareImage": getFileData("default-image.png"),
+  };
+  await createEntry({ model: "homepage", entry: homepage, files });
+}
+
+async function importWriters() {
+  return Promise.all(writers.map(async (writer) => {
     const files = {
-      coverImage,
+      picture: getFileData(`${writer.email}.jpg`),
     };
-    // Check if dynamic zone has attached files
-    project.content.forEach((section, index) => {
-      if (section.__component === 'sections.large-media') {
-        files[`content.${index}.media`] = getFileData('large-media.jpg');
-      } else if (section.__component === 'sections.images-slider') {
-        // All project cover images
-        const sliderFiles = projects.map((project) => {
-          return getFileData(`${project.slug}.jpg`);
-        });
-        files[`content.${index}.images`] = sliderFiles;
-      }
+    return createEntry({
+      model: "writer",
+      entry: writer,
+      files,
     });
-    await createEntry('project', project, files);
-  });
+  }));
+}
+
+async function importArticles() {
+  return Promise.all(articles.map((article) => {
+    const files = {
+      image: getFileData(`${article.slug}.jpg`),
+    };
+    return createEntry({ model: "article", entry: article, files });
+  }));
 }
 
 async function importGlobal() {
-  // Add favicon image
-  const favicon = getFileData('favicon.png');
   const files = {
-    favicon,
+    "favicon": getFileData("favicon.png"),
+    "defaultSeo.shareImage": getFileData("default-image.png"),
   };
-  // Add icon for each social network
-  global.socialNetworks.forEach((network, index) => {
-    files[`socialNetworks.${index}.icon`] = getFileData(
-      `${network.title.toLowerCase()}.svg`
-    );
-  });
-  await createEntry('global', global, files);
-}
-
-async function importHome() {
-  const shareImage = getFileData('global.png');
-  const files = {
-    "seo.shareImage": shareImage,
-  };
-  await createEntry('home', home, files);
-}
-
-async function importAbout() {
-  const aboutImage = getFileData('about.jpg');
-  const files = {
-    "seo.shareImage": aboutImage,
-  };
-  
-  // Check for files to upload in the dynamic zone
-  about.content.forEach((section, index) => {
-    if (section.__component === 'sections.large-media') {
-      files[`content.${index}.media`] = aboutImage;
-    } else if (section.__component === 'sections.images-slider') {
-      // All project cover images
-      const sliderFiles = projects.map((project) => {
-        return getFileData(`${project.slug}.jpg`);
-      });
-      files[`content.${index}.images`] = sliderFiles;
-    }
-  });
-  
-  // Save in Strapi
-  await createEntry('about', about, files);
+  return createEntry({ model: "global", entry: global, files });
 }
 
 async function importSeedData() {
   // Allow read of application content types
   await setPublicPermissions({
-    about: ['find'],
-    category: ['find', 'findone'],
     global: ['find'],
-    home: ['find'],
-    project: ['find', 'findone'],
+    homepage: ['find'],
+    article: ['find', 'findone'],
+    category: ['find', 'findone'],
+    writer: ['find', 'findone'],
   });
-  
+
   // Create all entries
   await importCategories();
-  await importProjects();
+  await importHomepage();
+  await importWriters();
+  await importArticles();
   await importGlobal();
-  await importHome();
-  await importAbout();
-};
+}
 
 module.exports = async () => {
   const shouldImportSeedData = await isFirstRun();
+
   if (shouldImportSeedData) {
     try {
       console.log('Setting up your starter...');

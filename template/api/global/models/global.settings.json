@@ -9,30 +9,26 @@
     "timestamps": true
   },
   "attributes": {
-    "siteName": {
-      "type": "string"
-    },
-    "contactEmail": {
-      "type": "string"
-    },
-    "socialNetworks": {
-      "type": "component",
-      "repeatable": true,
-      "component": "elements.link"
-    },
-    "siteLanguage": {
-      "type": "string",
-      "default": "en",
-      "maxLength": 2
-    },
     "favicon": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
-        "images"
+        "images",
+        "files",
+        "videos"
       ],
       "plugin": "upload",
       "required": false
+    },
+    "siteName": {
+      "type": "string",
+      "required": true
+    },
+    "defaultSeo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "required": true
     }
   }
 }

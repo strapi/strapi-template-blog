@@ -1,144 +1,147 @@
 {
   "categories": [
     {
-      "title":"Cooking",
-      "description":"I like to experiment with food recipes"
+      "name": "news",
+      "slug": "news"
     },
     {
-      "title":"Design",
-      "description":"I create beautiful and intuitive user interfaces"
+      "name": "tech",
+      "slug": "tech"
     },
     {
-      "title":"Coding",
-      "description":"I build products with code"
+      "name": "food",
+      "slug": "food"
+    },
+    {
+      "name": "nature",
+      "slug": "nature"
+    },
+    {
+      "name": "story",
+      "slug": "story"
     }
   ],
-  "projects": [
+  "homepage": {
+    "seo": {
+      "metaTitle": "My personal Strapi blog",
+      "metaDescription": "Discover my SEO friendly blog built with Strapi.",
+      "shareImage": null
+    },
+    "hero": {
+      "title": "My blog"
+    }
+  },
+  "writers": [
     {
-      "title":"Pepperoni pizza",
-      "description":"My last cooking project, and my first pizza. Pepperoni is characteristically soft, slightly smoky, and bright red in color. Thinly sliced pepperoni is a popular pizza topping in American pizzerias.",
-      "date":"2020-05-19",
-      "slug":"pepperoni-pizza",
-      "content":[
-        {
-          "__component":"sections.rich-text",
-          "content":"I know it’s just a small change on the traditional pepperoni pizza but it makes a big difference to add that freshness to this classic. And the way it pairs with pepperoni is perfection. Oregano is often a key flavor in pizza so why not let it shine bright?\n\nHere’s another thing you may think I’m crazy for saying, I like turkey pepperoni just as much, if not more than, regular pepperoni (my husband even thinks the same thing).\n\nIt has all the same flavors just a lot less fat, so you don’t end up with a pizza swimming in a layer of grease from an overdose of pepperoni fat.\n\nDon’t get this pizza wrong, it’s definitely no low cal pizza, it’s just tweaked to suit my personal taste. If you like regular pepperoni too much to ever even dare reach for something else, by all means go ahead and use that.\n\nI’m not here to change your taste in food or tell you only my way is the right way, I just share my opinion (and I’m very opinionated when it comes to food, but aren’t we all?). Turkey bacon on the other hand, don’t go there."
-        }
-      ],
-      "coverImage":null,
-      "categories":[
-        {
-          "id":1
-        }
-      ]
+      "name": "David Doe",
+      "email": "daviddoe@strapi.io",
+      "picture": null
     },
     {
-      "title":"Hacker News Redesign",
-      "description":"Sometimes browse Hacker News to keep up with the tech industry. But the site is old and hard to read. I redesigned its UI to make it more modern and accessible.",
-      "date":"2020-07-16",
-      "slug":"hacker-news-redesign",
-      "content":[
-        {
-          "__component":"sections.rich-text",
-          "content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-        },
-        {
-          "__component":"sections.large-media",
-          "description":"The design process",
-          "media":null
-        },
-        {
-          "__component":"sections.rich-text",
-          "content":"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.\n\n> Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur?\n\nQuis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
-        }
-      ],
-      "coverImage":null,
-      "categories":[
-        {
-          "id":2
-        }
-      ]
-    },
-    {
-      "title":"Vue.js Todo List",
-      "description":"I needed to get better at managing my daily tasks. So I build a nice little todo list application. It performs all CRUD operations.",
-      "date":"2020-08-06",
-      "slug":"vue-js-todo-list",
-      "content":[
-        {
-          "__component":"sections.rich-text",
-          "content":"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.\n\n* Looks good\n* Loads fast\n* Mobile friendly\n* Cloud backup"
-        },
-        {
-          "__component":"sections.images-slider",
-          "title":"Cool images slider",
-          "images":[]
-        }
-      ],
-      "coverImage":null,
-      "categories":[
-        {
-          "id":3
-        },
-        {
-          "id":2
-        }
-      ]
+      "name": "Sarah Baker",
+      "email": "sarahbaker@strapi.io",
+      "picture": null
     }
   ],
-  "home": {
-    "title":"Strapi portfolio starter",
-    "bio":"This is a sample portfolio website. All this site's data is managed in a [Strapi project](https://strapi.io). The frontend was built with [Gridsome](https://gridsome.org), a Vue.js framework to build static sites. You can use this starter and customize it to build your own portfolio. You can also check out our other [Strapi starters](https://github.com/strapi?q=starter).",
-    "seo":{
-      "title":"Strapi Gridsome portfolio demo",
-      "description":"A sample application made with Strapi and Gridsome.",
-      "shareImage":null
-    }
-  },
-  "about": {
-    "id":1,
-    "content":[
-      {
-        "__component":"sections.rich-text",
-        "content":"# About me\n\nThis is a section where you get to talk about yourself. Show off your personality, interests, or childhood pictures.\n\nFor example, here are my hobbies:\n\n* Scuba diving\n* Hiking\n* Karaoke nights"
+  "articles": [
+    {
+      "title": "The internet's Own boy",
+      "content": "# The Story of Aaron Swartz\n\nAaron Hillel Swartz (November 8, 1986 – January 11, 2013) was an American computer programmer, entrepreneur, writer, political organizer, and Internet hacktivist. He was involved in the development of the web feed format RSS, the Markdown publishing format, the organization Creative Commons, and the website framework web.py, and was a co-founder of the social news site [Reddit](https://reddit.com). He was given the title of co-founder of Reddit by Y Combinator owner [Paul Graham](https://en.wikipedia.org/wiki/Paul_Graham_(programmer)) after the formation of Not a Bug, Inc. (a merger of Swartz's project Infogami and Redbrick Solutions, a company run by Alexis Ohanian and Steve Huffman).\n\nSwartz's work also focused on civic awareness and activism. He helped launch the Progressive Change Campaign Committee in 2009 to learn more about effective online activism. In 2010, he became a research fellow at Harvard University's Safra Research Lab on Institutional Corruption, directed by Lawrence Lessig. He founded the online group Demand Progress, known for its campaign against the Stop Online Piracy Act.\n\n\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/PFQGjEJ9PEc\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\n\n\nIn 2011, Swartz was arrested by Massachusetts Institute of Technology (MIT) police on state breaking-and-entering charges, after connecting a computer to the MIT network in an unmarked and unlocked closet, and setting it to download academic journal articles systematically from JSTOR using a guest user account issued to him by MIT. Federal prosecutors later charged him with two counts of wire fraud and eleven violations of the Computer Fraud and Abuse Act,[14] carrying a cumulative maximum penalty of $1 million in fines, 35 years in prison, asset forfeiture, restitution, and supervised release.\n\nSwartz declined a plea bargain under which he would have served six months in federal prison. Two days after the prosecution rejected a counter-offer by Swartz, he was found dead in his Brooklyn apartment, where he had hanged himself.\n\nIn 2013, Swartz was inducted posthumously into the [Internet Hall of Fame](https://www.internethalloffame.org//).",
+      "publishedAt": "2020-07-16T10:00:00.000Z",
+      "status": "published",
+      "slug": "the-internet-s-own-boy",
+      "category": {
+        "id": 5
       },
-      {
-        "__component":"sections.large-media",
-        "description":"My family last summer",
-        "media":null
+      "author": {
+        "id": 1
       },
-      {
-        "__component":"sections.rich-text",
-        "content":"Again, you can add as much content as you want here. People want to get to know you!\n\nYou can also write *italic* or **bold** text.\n\n> Wow this about section looks great\n>\n> -- A happy Strapi user\n"
-      }
-    ],
-    "seo":{
-      "title":"About me",
-      "description":"Me, my life, my hobbies, and a summary of what I do outside of work.",
-      "shareImage":null
+      "description": "Follow the story of Aaron Swartz, the boy who could change the world",
+      "image": null
+    },
+    {
+      "title": "What's inside a Black Hole",
+      "content": "Well, we don't know yet...",
+      "publishedAt": "2020-07-16T10:00:00.000Z",
+      "status": "published",
+      "slug": "what-s-inside-a-black-hole",
+      "category": {
+        "id": 1
+      },
+      "author": {
+        "id": 2
+      },
+      "description": "Maybe the answer is in this article, or not...",
+      "image": null
+    },
+    {
+      "title": "This shrimp is awesome",
+      "content": "# Badass\n\nMantis shrimps, or stomatopods, are marine crustaceans of the order Stomatopoda. Some species have specialised calcified \"*clubs*\" that can strike with **great power**, while others have sharp forelimbs used to capture prey. They branched from other members of the class Malacostraca around 340 million years ago. Mantis shrimps typically grow to around 10 cm (3.9 in) in length. A few can reach up to 38 cm (15 in). The largest mantis shrimp ever caught had a length of 46 cm (18 in); it was caught in the Indian River near Fort Pierce, Florida, in the United States. A mantis shrimp's carapace (the bony, thick shell that covers crustaceans and some other species) covers only the rear part of the head and the first four segments of the thorax. Varieties range in color from shades of brown to vivid colors, with more than 450 species of mantis shrimps being known. They are among the most important predators in many shallow, tropical and subtropical marine habitats. However, despite being common, they are poorly understood, as many species spend most of their lives tucked away in burrows and holes.\n\nCalled \"sea locusts\" by ancient Assyrians, \"prawn killers\" in Australia, and now sometimes referred to as \"thumb splitters\"—because of the animal's ability to inflict painful gashes if handled incautiously—mantis shrimps have powerful claws that are used to attack and kill prey by spearing, stunning, or dismembering.\n\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/CW8NUCPLE1c\" frameborder=\"0\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen></iframe>\n\nMantis shrimps have, like mantis, ravishing legs. But theirs are so resilient that they inspire the military to make the armor of the future. Above all, their speed and striking power are the responsibility of the superpowers. As the comic book The Oatmeal recounts, the squid's ravishing legs move at the speed of a bullet fired by a 22 caliber and can strike a prey in 1/3000 of a second, with a force of 1,500 Newtons. One tenth of that speed, deployed by a human arm, \"would be enough to send a baseball into orbit.\"\n\nA speed such as it boils water around ravishing legs and creates a shock wave capable of killing a prey missed by the strike.\n\nKept in an aquarium, crustaceans make carnage by dismembering and devouring crabs, shrimps, octopuses, snails and shells (whose shells they break). They would even be able to break the windows of overly fragile aquariums.",
+      "publishedAt": "2020-07-16T10:00:00.000Z",
+      "status": "published",
+      "slug": "this-shrimp-is-awesome",
+      "category": {
+        "id": 4
+      },
+      "author": {
+        "id": 1
+      },
+      "description": "Mantis shrimps, or stomatopods, are marine crustaceans of the order Stomatopoda. Some species have specialised calcified \"clubs\" that can strike with great power, while others have sharp forelimbs used to capture prey.",
+      "image": null
+    },
+    {
+      "title": "A bug is becoming a meme on the internet",
+      "content": "It's the story of a user named **Omer Barnir** who reported a bug in 2005 on the MySQL [bug report platform](https://bugs.mysql.com/)\n\nBut the thing is that Omer never get an answer. 15 years later, the bug has never been fix and people are starting to make fun out of it. We let you take a look at the conversation [here](https://bugs.mysql.com/bug.php?id=11472), it's pretty funny",
+      "publishedAt": "2020-07-16T10:00:00.000Z",
+      "status": "published",
+      "slug": "a-bug-is-becoming-a-meme-on-the-internet",
+      "category": {
+        "id": 2
+      },
+      "author": {
+        "id": 2
+      },
+      "description": "How a bug on MySQL is becoming a meme on the internet",
+      "image": null
+    },
+    {
+      "title": "Beautiful picture",
+      "content": "This is an empty blog post with a beautiful picture",
+      "publishedAt": "2020-07-16T10:00:00.000Z",
+      "status": "published",
+      "slug": "beautiful-picture",
+      "category": {
+        "id": 4
+      },
+      "author": {
+        "id": 2
+      },
+      "description": "Description of a beautiful picture",
+      "image": null
+    },
+    {
+      "title": "We love Pizza",
+      "content": "We love pizza at Strapi, what about you?",
+      "publishedAt": "2020-07-16T10:00:00.000Z",
+      "status": "published",
+      "slug": "we-love-pizza",
+      "category": {
+        "id": 3
+      },
+      "author": {
+        "id": 1
+      },
+      "description": "Pizza is so delicious, specially four cheese pizza",
+      "image": null
     }
-  },
+  ],
   "global": {
-    "siteName":"Portfolio",
-    "contactEmail":"contact@email.com",
-    "siteLanguage":"en",
-    "socialNetworks":[
-      {
-        "title":"Twitter",
-        "url":"#",
-        "icon":null
-      },
-      {
-        "title":"LinkedIn",
-        "url":"#",
-        "icon":null
-      },
-      {
-        "title":"Instagram",
-        "url":"#",
-        "icon":null
-      }
-    ],
+    "siteName":"Strapi Blog",
+    "defaultSeo":{
+      "metaTitle":"Page",
+      "metaDescription":"A blog made with Strapi",
+      "shareImage":null
+    },
     "favicon":null
   }
 }
