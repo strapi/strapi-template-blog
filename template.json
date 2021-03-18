@@ -2,7 +2,7 @@
   "package": {
     "dependencies": {
       "mime-types": "^2.1.27",
-      "strapi-plugin-graphql": "3.2.5"
+      "strapi-plugin-graphql": "3.5.2"
     }
   }
 }
