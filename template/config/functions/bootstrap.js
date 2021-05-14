@@ -160,7 +160,7 @@ module.exports = async () => {
 
   if (shouldImportSeedData) {
     try {
-      console.log('Setting up your starter...');
+      console.log('Setting up the template...');
       await importSeedData();
       console.log('Ready to go');
     } catch (error) {
