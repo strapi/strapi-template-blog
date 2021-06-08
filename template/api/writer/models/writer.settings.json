@@ -22,8 +22,8 @@
       "required": false
     },
     "articles": {
-      "collection": "article",
-      "via": "author"
+      "via": "author",
+      "collection": "article"
     },
     "email": {
       "type": "string"
