@@ -24,10 +24,6 @@
       "type": "richtext",
       "required": true
     },
-    "publishedAt": {
-      "type": "datetime",
-      "required": true
-    },
     "slug": {
       "type": "uid",
       "targetField": "title",
