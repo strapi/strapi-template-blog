@@ -2,12 +2,15 @@
   "kind": "collectionType",
   "collectionName": "articles",
   "info": {
-    "name": "article"
+    "name": "article",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": true
   },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string",
@@ -20,19 +23,6 @@
     "content": {
       "type": "richtext",
       "required": true
-    },
-    "publishedAt": {
-      "type": "datetime",
-      "required": true
-    },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "draft",
-        "published"
-      ],
-      "required": true,
-      "default": "draft"
     },
     "slug": {
       "type": "uid",
@@ -52,7 +42,8 @@
         "videos"
       ],
       "plugin": "upload",
-      "required": true
+      "required": true,
+      "pluginOptions": {}
     },
     "author": {
       "via": "articles",
