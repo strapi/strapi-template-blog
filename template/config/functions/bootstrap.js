@@ -22,16 +22,20 @@ async function isFirstRun() {
   return !initHasRun;
 }
 
+/**
+ *
+ * @param {array} newPermissions permissions to update
+ */
 async function setPublicPermissions(newPermissions) {
   // Find the ID of the public role
   const publicRole = await strapi
-    .query("role", "users-permissions")
+    .query("plugins::users-permissions.role")
     .findOne({ type: "public" });
 
   // List all available permissions
   const publicPermissions = await strapi
-    .query("permission", "users-permissions")
-    .find({
+    .query("plugins::users-permissions.permission")
+    .findMany({
       type: ["users-permissions", "application"],
       role: publicRole.id,
     });
@@ -51,9 +55,14 @@ async function setPublicPermissions(newPermissions) {
     })
     .map((permission) => {
       // Enable the selected permissions
-      return strapi
-        .query("permission", "users-permissions")
-        .update({ id: permission.id }, { enabled: true });
+      return strapi.query("plugins::users-permissions.permission").update({
+        where: {
+          id: permission.id,
+        },
+        data: {
+          enabled: true,
+        },
+      });
     });
   await Promise.all(updatePromises);
 }
@@ -82,12 +91,18 @@ function getFileData(fileName) {
 
 // Create an entry and attach files if there are any
 async function createEntry({ model, entry, files }) {
+  console.log(model, entry);
   try {
-    const createdEntry = await strapi.query(model).create(entry);
+    const createdEntry = await strapi
+      .query(`application::${model}.${model}`)
+      .create({ data: entry });
+
     if (files) {
-      await strapi.entityService.uploadFiles(createdEntry, files, {
-        model,
-      });
+      await strapi.entityService.uploadFiles(
+        `application::${model}.${model}`,
+        createdEntry,
+        files
+      );
     }
   } catch (e) {
     console.log("model", entry, e);
@@ -149,13 +164,13 @@ function getEntryWithRelations(article, categories, authors) {
 }
 
 async function importArticles() {
-  const categories = await strapi.query("category").find();
-  const authors = await strapi.query("writer").find();
+  // const categories = await strapi.query("application::category.category").findMany();
+  // const authors = await strapi.query("application::writer.writer").findMany();
 
   return Promise.all(
     articles.map((article) => {
       // Get relations for each article
-      const entry = getEntryWithRelations(article, categories, authors);
+      // const entry = getEntryWithRelations(article, categories, authors);
 
       const files = {
         image: getFileData(`${article.slug}.jpg`),
@@ -163,7 +178,7 @@ async function importArticles() {
 
       return createEntry({
         model: "article",
-        entry,
+        entry: article,
         files,
       });
     })

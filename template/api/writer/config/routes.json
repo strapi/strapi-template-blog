@@ -10,14 +10,6 @@
     },
     {
       "method": "GET",
-      "path": "/writers/count",
-      "handler": "writer.count",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
       "path": "/writers/:id",
       "handler": "writer.findOne",
       "config": {

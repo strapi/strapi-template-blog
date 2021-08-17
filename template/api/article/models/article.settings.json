@@ -30,24 +30,25 @@
       "required": true
     },
     "category": {
-      "model": "category",
-      "via": "articles"
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "application::category.category",
+      "inversedBy": "articles"
     },
     "image": {
-      "model": "file",
-      "via": "related",
       "allowedTypes": [
-        "files",
         "images",
+        "files",
         "videos"
       ],
-      "plugin": "upload",
-      "required": true,
-      "pluginOptions": {}
+      "type": "media",
+      "multiple": false
     },
     "author": {
-      "via": "articles",
-      "model": "writer"
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "application::writer.writer",
+      "inversedBy": "articles"
     }
   }
 }

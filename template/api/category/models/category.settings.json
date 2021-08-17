@@ -19,8 +19,10 @@
       "required": true
     },
     "articles": {
-      "via": "category",
-      "collection": "article"
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "application::article.article",
+      "mappedBy": "category"
     }
   }
 }

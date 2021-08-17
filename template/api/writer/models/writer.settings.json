@@ -22,8 +22,10 @@
       "required": false
     },
     "articles": {
-      "via": "author",
-      "collection": "article"
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "application::article.article",
+      "mappedBy": "author"
     },
     "email": {
       "type": "string"

@@ -55,7 +55,7 @@
         "id": 1
       },
       "description": "Follow the story of Aaron Swartz, the boy who could change the world",
-      "image": null
+      "published_at": "2021-08-03T13:17:57.170Z"
     },
     {
       "title": "What's inside a Black Hole",
@@ -68,7 +68,7 @@
         "id": 2
       },
       "description": "Maybe the answer is in this article, or not...",
-      "image": null
+      "published_at": "2021-08-03T13:17:57.170Z"
     },
     {
       "title": "This shrimp is awesome",
@@ -81,7 +81,7 @@
         "id": 1
       },
       "description": "Mantis shrimps, or stomatopods, are marine crustaceans of the order Stomatopoda. Some species have specialised calcified \"clubs\" that can strike with great power, while others have sharp forelimbs used to capture prey.",
-      "image": null
+      "published_at": "2021-08-03T13:17:57.170Z"
     },
     {
       "title": "A bug is becoming a meme on the internet",
@@ -94,7 +94,7 @@
         "id": 2
       },
       "description": "How a bug on MySQL is becoming a meme on the internet",
-      "image": null
+      "published_at": "2021-08-03T13:17:57.170Z"
     },
     {
       "title": "Beautiful picture",
@@ -107,7 +107,7 @@
         "id": 2
       },
       "description": "Description of a beautiful picture",
-      "image": null
+      "published_at": "2021-08-03T13:17:57.170Z"
     },
     {
       "title": "We love Pizza",
@@ -120,7 +120,7 @@
         "id": 1
       },
       "description": "Pizza is so delicious, specially four cheese pizza",
-      "image": null
+      "published_at": "2021-08-03T13:17:57.170Z"
     }
   ],
   "global": {
