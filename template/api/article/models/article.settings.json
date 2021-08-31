@@ -32,7 +32,7 @@
     "category": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "application::category.category",
+      "target": "api::category.category",
       "inversedBy": "articles"
     },
     "image": {
@@ -47,7 +47,7 @@
     "author": {
       "type": "relation",
       "relation": "manyToOne",
-      "target": "application::writer.writer",
+      "target": "api::writer.writer",
       "inversedBy": "articles"
     }
   }

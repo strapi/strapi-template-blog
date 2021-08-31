@@ -1,8 +1,8 @@
 "use strict";
 
 const fs = require("fs");
-const path = require("path");
 const mime = require("mime-types");
+
 const {
   categories,
   homepage,
@@ -29,12 +29,12 @@ async function isFirstRun() {
 async function setPublicPermissions(newPermissions) {
   // Find the ID of the public role
   const publicRole = await strapi
-    .query("plugins::users-permissions.role")
+    .query("plugin::users-permissions.role")
     .findOne({ type: "public" });
 
   // List all available permissions
   const publicPermissions = await strapi
-    .query("plugins::users-permissions.permission")
+    .query("plugin::users-permissions.permission")
     .findMany({
       type: ["users-permissions", "application"],
       role: publicRole.id,
@@ -55,7 +55,7 @@ async function setPublicPermissions(newPermissions) {
     })
     .map((permission) => {
       // Enable the selected permissions
-      return strapi.query("plugins::users-permissions.permission").update({
+      return strapi.query("plugin::users-permissions.permission").update({
         where: {
           id: permission.id,
         },
@@ -91,15 +91,14 @@ function getFileData(fileName) {
 
 // Create an entry and attach files if there are any
 async function createEntry({ model, entry, files }) {
-  console.log(model, entry);
   try {
     const createdEntry = await strapi
-      .query(`application::${model}.${model}`)
+      .query(`api::${model}.${model}`)
       .create({ data: entry });
 
     if (files) {
       await strapi.entityService.uploadFiles(
-        `application::${model}.${model}`,
+        `api::${model}.${model}`,
         createdEntry,
         files
       );
@@ -139,39 +138,9 @@ async function importWriters() {
   );
 }
 
-// Randomly set relations on Article to avoid error with MongoDB
-function getEntryWithRelations(article, categories, authors) {
-  const isMongoose = strapi.config.connections.default.connector == "mongoose";
-
-  if (isMongoose) {
-    const randomRelation = (relation) =>
-      relation[Math.floor(Math.random() * relation.length)].id;
-    delete article.category.id;
-    delete article.author.id;
-
-    return {
-      ...article,
-      category: {
-        _id: randomRelation(categories),
-      },
-      author: {
-        _id: randomRelation(authors),
-      },
-    };
-  }
-
-  return article;
-}
-
 async function importArticles() {
-  // const categories = await strapi.query("application::category.category").findMany();
-  // const authors = await strapi.query("application::writer.writer").findMany();
-
   return Promise.all(
     articles.map((article) => {
-      // Get relations for each article
-      // const entry = getEntryWithRelations(article, categories, authors);
-
       const files = {
         image: getFileData(`${article.slug}.jpg`),
       };
@@ -190,6 +159,7 @@ async function importGlobal() {
     favicon: getFileData("favicon.png"),
     "defaultSeo.shareImage": getFileData("default-image.png"),
   };
+
   return createEntry({ model: "global", entry: global, files });
 }
 

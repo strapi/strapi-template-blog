@@ -21,7 +21,7 @@
     "articles": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "application::article.article",
+      "target": "api::article.article",
       "mappedBy": "category"
     }
   }
