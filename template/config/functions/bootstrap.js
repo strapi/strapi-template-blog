@@ -2,6 +2,7 @@
 
 const fs = require("fs");
 const mime = require("mime-types");
+const set = require("lodash.set");
 
 const {
   categories,
@@ -64,6 +65,7 @@ async function setPublicPermissions(newPermissions) {
         },
       });
     });
+
   await Promise.all(updatePromises);
 }
 
@@ -75,7 +77,6 @@ function getFileSizeInBytes(filePath) {
 
 function getFileData(fileName) {
   const filePath = `./data/uploads/${fileName}`;
-
   // Parse the file metadata
   const size = getFileSizeInBytes(filePath);
   const ext = fileName.split(".").pop();
@@ -92,19 +93,35 @@ function getFileData(fileName) {
 // Create an entry and attach files if there are any
 async function createEntry({ model, entry, files }) {
   try {
-    const createdEntry = await strapi
-      .query(`api::${model}.${model}`)
-      .create({ data: entry });
-
     if (files) {
-      await strapi.entityService.uploadFiles(
-        `api::${model}.${model}`,
-        createdEntry,
-        files
-      );
+      for (const [key, file] of Object.entries(files)) {
+        // Get file name without the extension
+        const [fileName] = file.name.split(".");
+        // Upload each individual file
+        const uploadedFile = await strapi
+          .plugin("upload")
+          .service("upload")
+          .upload({
+            files: file,
+            data: {
+              fileInfo: {
+                alternativeText: fileName,
+                caption: fileName,
+                name: fileName,
+              },
+            },
+          });
+
+        // Attach each file to its entry
+        set(entry, key, uploadedFile[0].id);
+      }
     }
+
+    await strapi.entityService.create(`api::${model}.${model}`, {
+      data: entry,
+    });
   } catch (e) {
-    console.log("model", entry, e);
+    console.log(`${model} failed`, `error:`, e);
   }
 }
 
@@ -116,19 +133,13 @@ async function importCategories() {
   );
 }
 
-async function importHomepage() {
-  const files = {
-    "seo.shareImage": getFileData("default-image.png"),
-  };
-  await createEntry({ model: "homepage", entry: homepage, files });
-}
-
 async function importWriters() {
   return Promise.all(
     writers.map(async (writer) => {
       const files = {
         picture: getFileData(`${writer.email}.jpg`),
       };
+
       return createEntry({
         model: "writer",
         entry: writer,
@@ -160,7 +171,23 @@ async function importGlobal() {
     "defaultSeo.shareImage": getFileData("default-image.png"),
   };
 
-  return createEntry({ model: "global", entry: global, files });
+  return createEntry({
+    model: "global",
+    entry: global,
+    files,
+  });
+}
+
+async function importHomepage() {
+  const files = {
+    "seo.shareImage": getFileData("default-image.png"),
+  };
+
+  return createEntry({
+    model: "homepage",
+    entry: homepage,
+    files,
+  });
 }
 
 async function importSeedData() {
@@ -174,16 +201,15 @@ async function importSeedData() {
   });
 
   // Create all entries
+  await importArticles();
   await importCategories();
   await importHomepage();
   await importWriters();
-  await importArticles();
   await importGlobal();
 }
 
 module.exports = async () => {
   const shouldImportSeedData = await isFirstRun();
-
   if (shouldImportSeedData) {
     try {
       console.log("Setting up the template...");

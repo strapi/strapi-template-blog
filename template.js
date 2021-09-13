@@ -1,10 +1,11 @@
-module.exports = function(scope) {
+module.exports = function (scope) {
   return {
     package: {
       dependencies: {
         "mime-types": "^2.1.27",
         "@strapi/plugin-graphql": scope.strapiVersion,
-      }
-    }
-  }
-}
+        "lodash.set": "^4.3.2",
+      },
+    },
+  };
+};

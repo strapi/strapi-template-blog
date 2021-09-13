@@ -121,19 +121,16 @@
   "global": {
     "siteName": "Strapi Blog",
     "defaultSeo": {
-      "id": 1,
       "metaTitle": "Page",
       "metaDescription": "A blog made with Strapi"
     }
   },
   "homepage": {
     "seo": {
-      "id": 1,
       "metaTitle": "My personal Strapi blog",
       "metaDescription": "Discover my SEO friendly blog built with Strapi."
     },
     "hero": {
-      "id": 1,
       "title": "My blog"
     }
   }
