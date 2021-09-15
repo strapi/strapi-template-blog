@@ -2,8 +2,10 @@
   "kind": "collectionType",
   "collectionName": "articles",
   "info": {
-    "name": "article",
-    "description": ""
+    "singularName": "article",
+    "pluralName": "articles",
+    "displayName": "article",
+    "name": "article"
   },
   "options": {
     "increments": true,

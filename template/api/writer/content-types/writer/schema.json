@@ -2,7 +2,10 @@
   "kind": "collectionType",
   "collectionName": "writers",
   "info": {
-    "name": "Writer"
+    "singularName": "writer",
+    "pluralName": "writers",
+    "displayName": "writer",
+    "name": "writer"
   },
   "options": {
     "increments": true,
@@ -13,13 +16,13 @@
       "type": "string"
     },
     "picture": {
-      "model": "file",
-      "via": "related",
       "allowedTypes": [
-        "images"
+        "images",
+        "files",
+        "videos"
       ],
-      "plugin": "upload",
-      "required": false
+      "type": "media",
+      "multiple": false
     },
     "articles": {
       "type": "relation",
